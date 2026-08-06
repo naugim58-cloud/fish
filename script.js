@@ -25,8 +25,15 @@ function resetDiagnosis() {
 }
 function toast(message){const el=document.querySelector('#toast');el.textContent=message;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600)}
 function getLocation(){document.querySelector('#location-input').childNodes[0].nodeValue='⌖ 현재 위치를 확인했어요 · 기장군 일광면 ';toast('현재 위치가 반영되었습니다.');}
+function toggleNotifications(){document.querySelector('#notification-panel').classList.toggle('hidden');document.querySelector('#account-panel').classList.add('hidden');}
+function toggleAccount(){document.querySelector('#account-panel').classList.toggle('hidden');document.querySelector('#notification-panel').classList.add('hidden');}
+function openApp(name,guest=false){document.querySelector('#login-gate').classList.add('hidden');document.body.classList.remove('login-open');const label=guest?'방문자':name;document.querySelector('#welcome-title').innerHTML=`안녕하세요, ${label} 님<br /><strong>${guest?'우리 바다의 안전을 확인하세요.':'오늘도 안전 양식하세요.'}</strong>`;document.querySelector('#account-name').textContent=label;toast(guest?'비회원으로 둘러보기 중입니다.':`${name} 님, 내 양식장 환경을 불러왔습니다.`);}
+function login(e){e.preventDefault();const id=document.querySelector('#login-id').value.trim();if(!id)return;sessionStorage.setItem('badaon-user',id);openApp(id);}
+function selectLoginType(type){document.querySelectorAll('.login-tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.loginType===type));document.querySelector('#member-login').classList.toggle('hidden',type!=='member');document.querySelector('#guest-login').classList.toggle('hidden',type!=='guest');}
+function enterGuest(){sessionStorage.setItem('badaon-user','guest');openApp('',true);}
+function logout(){document.querySelector('#account-panel').classList.add('hidden');sessionStorage.removeItem('badaon-user');document.querySelector('#login-gate').classList.remove('hidden');document.body.classList.add('login-open');toast('로그아웃되었습니다.');}
+document.body.classList.add('login-open');
 document.querySelector('#report-form').addEventListener('submit',e=>{e.preventDefault();toast('제보가 접수되었습니다. 확인 후 안내드릴게요.');e.target.reset();});
-document.querySelector('#report-photo').addEventListener('click',()=>toast('사진 선택 기능은 데모에서 준비 중입니다.'));
-
+document.querySelector('#report-image').addEventListener('change',e=>{const n=e.target.files.length;document.querySelector('#report-photo-label').textContent=n?`${n}장 선택됨`:'사진 추가하기';if(n)toast(`${n}장의 사진이 첨부되었습니다.`);});
 
 async function loadLiveMarineData(){try{const r=await fetch('data/latest.json?ts='+Date.now()),d=await r.json();document.querySelector('#live-station').textContent=d.station||'공식 해양 관측소';document.querySelector('#live-updated').textContent=`${d.source||'공식 데이터'} · ${d.updatedAt?new Date(d.updatedAt).toLocaleString('ko-KR'):'갱신 대기 중'}`;document.querySelector('#live-summary').innerHTML=d.temperature!=null?`현재 수온 <b>${d.temperature}°C</b> · 공식 관측값`:(d.status||'관측값 갱신 대기 중입니다.');}catch(_){document.querySelector('#live-summary').textContent='공식 관측 데이터 연결을 준비 중입니다.';}}loadLiveMarineData();
