@@ -27,12 +27,9 @@ function toast(message){const el=document.querySelector('#toast');el.textContent
 function getLocation(){document.querySelector('#location-input').childNodes[0].nodeValue='⌖ 현재 위치를 확인했어요 · 기장군 일광면 ';toast('현재 위치가 반영되었습니다.');}
 function toggleNotifications(){document.querySelector('#notification-panel').classList.toggle('hidden');document.querySelector('#account-panel').classList.add('hidden');}
 function toggleAccount(){document.querySelector('#account-panel').classList.toggle('hidden');document.querySelector('#notification-panel').classList.add('hidden');}
-function openApp(name,guest=false){document.querySelector('#login-gate').classList.add('hidden');document.body.classList.remove('login-open');const label=guest?'방문자':name;document.querySelector('#welcome-title').innerHTML=`안녕하세요, ${label} 님<br /><strong>${guest?'우리 바다의 안전을 확인하세요.':'오늘도 안전 양식하세요.'}</strong>`;document.querySelector('#account-name').textContent=label;toast(guest?'비회원으로 둘러보기 중입니다.':`${name} 님, 내 양식장 환경을 불러왔습니다.`);}
-function login(e){e.preventDefault();const id=document.querySelector('#login-id').value.trim();if(!id)return;sessionStorage.setItem('badaon-user',id);openApp(id);}
-function selectLoginType(type){document.querySelectorAll('.login-tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.loginType===type));document.querySelector('#member-login').classList.toggle('hidden',type!=='member');document.querySelector('#guest-login').classList.toggle('hidden',type!=='guest');}
-function enterGuest(){sessionStorage.setItem('badaon-user','guest');openApp('',true);}
-function logout(){document.querySelector('#account-panel').classList.add('hidden');sessionStorage.removeItem('badaon-user');document.querySelector('#login-gate').classList.remove('hidden');document.body.classList.add('login-open');toast('로그아웃되었습니다.');}
-document.body.classList.add('login-open');
+const signedInUser=sessionStorage.getItem('badaon-user');
+if(!signedInUser){window.location.replace('login.html');}else{const label=signedInUser==='guest'?'방문자':signedInUser;document.querySelector('#welcome-title').innerHTML=`안녕하세요, ${label} 님<br /><strong>${signedInUser==='guest'?'우리 바다의 안전을 확인하세요.':'오늘도 안전 양식하세요.'}</strong>`;document.querySelector('#account-name').textContent=label;}
+function logout(){document.querySelector('#account-panel').classList.add('hidden');sessionStorage.removeItem('badaon-user');window.location.replace('login.html');}
 document.querySelector('#report-form').addEventListener('submit',e=>{e.preventDefault();toast('제보가 접수되었습니다. 확인 후 안내드릴게요.');e.target.reset();});
 document.querySelector('#report-image').addEventListener('change',e=>{const n=e.target.files.length;document.querySelector('#report-photo-label').textContent=n?`${n}장 선택됨`:'사진 추가하기';if(n)toast(`${n}장의 사진이 첨부되었습니다.`);});
 
