@@ -25,6 +25,11 @@ function resetDiagnosis() {
 }
 function toast(message){const el=document.querySelector('#toast');el.textContent=message;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600)}
 function getLocation(){document.querySelector('#location-input').childNodes[0].nodeValue='⌖ 현재 위치를 확인했어요 · 기장군 일광면 ';toast('현재 위치가 반영되었습니다.');}
+function toggleNotifications(){document.querySelector('#notification-panel').classList.toggle('hidden');document.querySelector('#account-panel').classList.add('hidden');}
+function toggleAccount(){document.querySelector('#account-panel').classList.toggle('hidden');document.querySelector('#notification-panel').classList.add('hidden');}
+function login(e){e.preventDefault();const id=document.querySelector('#login-id').value.trim();document.querySelector('#welcome-title').innerHTML=`안녕하세요, ${id} 님<br /><strong>오늘도 안전 양식하세요.</strong>`;document.querySelector('#account-name').textContent=id;document.querySelector('#login-modal').classList.add('hidden');toast(`${id} 님, 내 양식장 환경을 불러왔습니다.`);}
+function logout(){document.querySelector('#account-panel').classList.add('hidden');document.querySelector('#login-modal').classList.remove('hidden');toast('로그아웃되었습니다.');}
+setTimeout(()=>document.querySelector('#login-modal').classList.remove('hidden'),500);
 document.querySelector('#report-form').addEventListener('submit',e=>{e.preventDefault();toast('제보가 접수되었습니다. 확인 후 안내드릴게요.');e.target.reset();});
 document.querySelector('#report-photo').addEventListener('click',()=>toast('사진 선택 기능은 데모에서 준비 중입니다.'));
 
