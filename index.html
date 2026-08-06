@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>바다온 | 수산 안전 알림</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="brand" onclick="goTo('home')" aria-label="바다온 홈"><span class="brand-mark">◒</span><span>바다온</span></button>
+        <div class="header-actions"><button class="icon-button" aria-label="알림">♧<i></i></button><button class="avatar" aria-label="내 프로필">김</button></div>
+      </header>
+
+      <main>
+        <section id="home" class="screen active">
+          <div class="hero-copy"><p class="eyebrow">오늘의 바다 안전 현황</p><h1>안전한 양식,<br /><strong>데이터로 지켜요.</strong></h1><p>내 양식장과 우리 바다의 이상 징후를<br />더 빠르게 확인하세요.</p></div>
+          <section class="weather-card"><div><span class="pill">부산 기장군</span><h2>양식장 주변<br />수온이 올라가고 있어요</h2><p>현재 수온 <b>26.8°C</b> · 어제보다 1.2°C ↑</p></div><div class="sun-icon">☀</div><div class="wave-line"></div></section>
+          <section class="status-row"><article><span class="status-icon orange">△</span><div><small>고수온 위험</small><b>주의</b></div></article><article><span class="status-icon red">●</span><div><small>적조 위험</small><b>관심</b></div></article></section>
+          <section class="section-head"><div><p class="eyebrow">실시간 위험 정보</p><h2>내 주변 바다 상황</h2></div><button onclick="goTo('alerts')">전체 보기 →</button></section>
+          <div class="map-preview"><div class="coast coast-one"></div><div class="coast coast-two"></div><span class="map-label">기장군</span><button class="map-pin p1">!</button><button class="map-pin p2">!</button><button class="map-pin p3">!</button><div class="map-legend"><span></span> 신고·위험 지점</div></div>
+        </section>
+
+        <section id="alerts" class="screen">
+          <div class="page-intro"><p class="eyebrow">LIVE MONITORING</p><h1>바다 위험 알림</h1><p>지역별 고수온·적조 위험도를 확인해요.</p></div>
+          <div class="location-chip">⌖ 부산광역시 기장군 <span>⌄</span></div>
+          <section class="risk-banner"><div class="risk-ring">!</div><div><p>고수온 주의 단계</p><h2>오늘 오후 가장 높아요</h2><small>14:00–17:00 · 수온 28°C 예상</small></div></section>
+          <div class="temperature-chart"><div class="chart-title"><b>해수면 온도 추이</b><span>최근 7일</span></div><div class="chart-area"><div class="grid"></div><svg viewBox="0 0 330 105" preserveAspectRatio="none"><path d="M0,81 C28,74 32,86 58,65 S88,72 111,51 S144,63 168,43 S198,53 219,27 S252,43 278,14 S306,32 330,9" fill="none" stroke="#ff7d51" stroke-width="4" stroke-linecap="round"/></svg><div class="chart-labels"><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span><span>오늘</span></div></div></div>
+          <section class="alert-list"><h2>현재 알림 <em>3</em></h2><article><span class="badge orange">주의</span><div><b>고수온 주의보 발령</b><p>기장군 일광면 해역 · 10분 전</p></div><span>›</span></article><article><span class="badge pink">관심</span><div><b>적조 예비 주의</b><p>기장군 연화리 해역 · 1시간 전</p></div><span>›</span></article></section>
+        </section>
+
+        <section id="diagnosis" class="screen">
+          <div class="page-intro"><p class="eyebrow">AI FISH CHECK</p><h1>어류 건강 진단</h1><p>사진 한 장으로 이상 징후를 확인해요.</p></div>
+          <div id="upload-state" class="upload-state"><div class="fish-illustration">🐟</div><h2>물고기 사진을 올려주세요</h2><p>AI가 외관의 질병 의심 징후를 분석합니다.<br />밝고 선명한 사진일수록 정확해요.</p><label class="primary-button" for="photo-input">카메라로 촬영하기</label><input id="photo-input" type="file" accept="image/*" capture="environment" hidden /><button class="text-button" onclick="showDemoDiagnosis()">예시 진단 결과 보기</button></div>
+          <div id="result-state" class="result-state hidden"><div class="photo-result"><img id="preview" alt="업로드한 어류 사진" /><span>AI 분석 완료</span></div><div class="diagnosis-score"><div class="score-circle">78<small>%</small></div><div><p>질병 의심도</p><h2>주의가 필요해요</h2><small>이미지 기반 1차 소견입니다</small></div></div><article class="finding"><span>🔎</span><div><b>세균성 아가미병 의심</b><p>아가미 색 변화와 체표 점액 증가 징후가 관찰됐어요.</p></div></article><h2 class="care-title">지금 해보세요</h2><ul class="care-list"><li>수온과 용존산소를 즉시 측정하세요.</li><li>먹이 공급량을 20–30% 줄여보세요.</li><li>이상이 지속되면 수산질병관리원에 문의하세요.</li></ul><button class="outline-button" onclick="resetDiagnosis()">다른 사진 진단하기</button></div>
+        </section>
+
+        <section id="report" class="screen">
+          <div class="page-intro"><p class="eyebrow">CITIZEN REPORT</p><h1>물고기 폐사 제보</h1><p>작은 제보가 우리 바다를 지킵니다.</p></div>
+          <form id="report-form"><label>발생 위치<div class="input-box" id="location-input">⌖ 부산광역시 기장군 일광면 <button type="button" onclick="getLocation()">현재 위치</button></div></label><label>제보 내용<textarea placeholder="발견한 상황을 알려주세요. (예: 해변가에 물고기가 다수 떠 있어요)"></textarea></label><label>사진 첨부 <span class="optional">선택</span><div class="report-photo" id="report-photo"><span>▧</span><b>사진 추가하기</b><small>최대 3장</small></div></label><button class="primary-button submit" type="submit">제보 접수하기</button></form>
+        </section>
+      </main>
+      <nav class="bottom-nav"><button class="nav-item active" data-page="home" onclick="goTo('home')"><span>△</span>위험 알림</button><button class="nav-item" data-page="diagnosis" onclick="goTo('diagnosis')"><span>▣</span>어류 진단</button><button class="nav-item" data-page="report" onclick="goTo('report')"><span>◁</span>제보하기</button></nav>
+      <div id="toast" class="toast"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
