@@ -13,15 +13,15 @@
     <div class="app-shell">
       <header class="topbar">
         <button class="brand" onclick="goTo('home')" aria-label="바다온 홈"><span class="brand-mark">◒</span><span>바다온</span></button>
-        <div class="header-actions"><button class="icon-button" aria-label="알림">♧<i></i></button><button class="avatar" aria-label="내 프로필">김</button></div>
+        <div class="header-actions"><button class="icon-button" aria-label="알림">🔔<i></i></button><button class="avatar" aria-label="내 프로필">김</button></div>
       </header>
 
       <main>
         <section id="home" class="screen active">
           <div class="hero-copy"><p class="eyebrow">오늘의 바다 안전 현황</p><h1>안전한 양식,<br /><strong>데이터로 지켜요.</strong></h1><p>내 양식장과 우리 바다의 이상 징후를<br />더 빠르게 확인하세요.</p></div>
-          <section class="weather-card"><div><span class="pill">부산 기장군</span><h2>양식장 주변<br />수온이 올라가고 있어요</h2><p>현재 수온 <b>26.8°C</b> · 어제보다 1.2°C ↑</p></div><div class="sun-icon">☀</div><div class="wave-line"></div></section>
+          <section class="weather-card"><div><span class="pill" id="live-station">실시간 관측소 연결 중</span><h2>양식장 주변<br />해양 상태를 확인해요</h2><p id="live-summary">공식 관측 데이터를 불러오는 중입니다.</p></div><div class="sun-icon">☀</div><div class="wave-line"></div></section>
           <section class="status-row"><article><span class="status-icon orange">△</span><div><small>고수온 위험</small><b>주의</b></div></article><article><span class="status-icon red">●</span><div><small>적조 위험</small><b>관심</b></div></article></section>
-          <section class="section-head"><div><p class="eyebrow">실시간 위험 정보</p><h2>내 주변 바다 상황</h2></div><button onclick="goTo('alerts')">전체 보기 →</button></section>
+          <section class="section-head"><div><p class="eyebrow">실시간 위험 정보</p><h2>내 주변 바다 상황</h2></div><button onclick="goTo('alerts')">전체 보기 →</button></section><p id="live-updated">공식 관측 자료 갱신 대기 중</p>
           <div class="map-preview"><div class="coast coast-one"></div><div class="coast coast-two"></div><span class="map-label">기장군</span><button class="map-pin p1">!</button><button class="map-pin p2">!</button><button class="map-pin p3">!</button><div class="map-legend"><span></span> 신고·위험 지점</div></div>
         </section>
 
